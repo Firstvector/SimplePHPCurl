@@ -1,12 +1,13 @@
 <?php
+
 spl_autoload_register(function ($class) {
-    if (false === strpos($class, 'SimplePHPCurl')) {
-        return;
-    }
+    $parts = explode('\\', $class);
 
-    $file = __DIR__ . '/src/' . str_replace('\\', '/', $class) . '.php';
+    if ('SimplePHPCurl' === array_shift($parts)) {
+        $file = sprintf('%s/src/%s.php', __DIR__, implode('/', $parts));
 
-    if (file_exists($file)) {
-        require $file;
+        if (file_exists($file)) {
+            require $file;
+        }
     }
 });

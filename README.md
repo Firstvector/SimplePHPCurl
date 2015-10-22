@@ -7,6 +7,11 @@ Simple library for performing **cURL** requests.
 An example of request with authorization via OAuth or Bearer token.
 
 ```php
+const CONSUMER_KEY = 'value';
+const CONSUMER_SECRET = 'value';
+const OAUTH_ACCESS_KEY = 'value';
+const OAUTH_ACCESS_SECRET = 'value';
+
 $token = new SimplePHPCurl\OAuthToken(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_ACCESS_KEY, OAUTH_ACCESS_SECRET);
 // $token = new SimplePHPCurl\BearerToken('https://api.twitter.com/oauth2/token', CONSUMER_KEY, CONSUMER_SECRET);
 

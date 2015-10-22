@@ -1,6 +1,11 @@
 <?php
 namespace SimplePHPCurl;
 
+/**
+ * cURL Request.
+ *
+ * @package SimplePHPCurl
+ */
 class Request
 {
     /**
@@ -28,7 +33,7 @@ class Request
     {
         $this->handler = curl_init();
         $this->options += [
-            CURLOPT_URL => $url,
+            CURLOPT_URL => (string) $url,
             CURLOPT_RETURNTRANSFER => true,
         ];
     }
@@ -66,7 +71,8 @@ class Request
     public function post(array $params)
     {
         if (null !== $this->auth) {
-            $this->auth->setRequestMethod(__FUNCTION__)->setRequestFields($params);
+            $this->auth->setRequestMethod(__FUNCTION__);
+            $this->auth->setRequestFields($params);
         }
 
         $this->options += [
@@ -83,10 +89,11 @@ class Request
      *
      * @return self
      */
-    public function get(array $params = array())
+    public function get(array $params = [])
     {
         if (null !== $this->auth) {
-            $this->auth->setRequestMethod(__FUNCTION__)->setRequestFields($params);
+            $this->auth->setRequestMethod(__FUNCTION__);
+            $this->auth->setRequestFields($params);
         }
 
         if (!empty($params)) {
@@ -118,8 +125,6 @@ class Request
      */
     public function execute()
     {
-        $data = false;
-
         if (isset($this->options[CURLOPT_POSTFIELDS])) {
             if (isset($this->headers['Content-Type'])) {
                 $params = [];
@@ -138,24 +143,20 @@ class Request
         }
 
         if (null !== $this->auth) {
-            $this->headers['Authorization'] = $this->auth->getHeader();
+            $this->headers['Authorization'] = (string) $this->auth;
         }
 
-        if (!empty($this->headers)) {
-            foreach ($this->headers as $header => $value) {
-                $this->options[CURLOPT_HTTPHEADER][] = "$header: $value";
-            }
+        foreach ($this->headers as $header => $value) {
+            $this->options[CURLOPT_HTTPHEADER][] = "$header: $value";
         }
 
         if (curl_setopt_array($this->handler, $this->options)) {
             $data = curl_exec($this->handler);
             $json = json_decode($data);
 
-            if (!empty($json)) {
-                $data = $json;
-            }
+            return empty($json) ? $data : $json;
         }
 
-        return $data;
+        return false;
     }
 }

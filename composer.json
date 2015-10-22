@@ -1,29 +1,29 @@
 {
-  "name": "firstvector/simplephpcurl",
-  "type": "library",
-  "description": "Simple library for performing cURL requests",
-  "keywords": ["curl", "access", "request", "oauth"],
-  "license": "MIT",
-  "homepage": "http://firstvector.org",
-  "authors": [
-    {
-      "name": "Sergey Bondarenko",
-      "email": "sb@firstvector.org",
-      "homepage": "http://firstvector.org",
-      "role": "Developer"
+    "name": "firstvector/simplephpcurl",
+    "type": "library",
+    "description": "Simple library for performing cURL requests",
+    "keywords": ["curl", "access", "request", "oauth"],
+    "license": "MIT",
+    "homepage": "http://firstvector.org",
+    "authors": [
+        {
+            "name": "Sergii Bondarenko",
+            "email": "sb@firstvector.org",
+            "homepage": "http://firstvector.org",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/Firstvector/SimplePHPCurl",
+        "issues": "https://github.com/Firstvector/SimplePHPCurl/issues"
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "SimplePHPCurl\\": "src/"
+        }
     }
-  ],
-  "support": {
-    "source": "https://github.com/Firstvector/SimplePHPCurl",
-    "issues": "https://github.com/Firstvector/SimplePHPCurl/issues"
-  },
-  "require": {
-    "php": ">=5.4.0",
-    "ext-curl": "*"
-  },
-  "autoload": {
-    "psr-4": {
-      "SimplePHPCurl\\": "src"
-    }
-  }
 }
