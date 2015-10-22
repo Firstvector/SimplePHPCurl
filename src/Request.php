@@ -70,7 +70,7 @@ class Request
      */
     public function post(array $params)
     {
-        if (null !== $this->auth) {
+        if (isset($this->auth)) {
             $this->auth->setRequestMethod(__FUNCTION__);
             $this->auth->setRequestFields($params);
         }
@@ -91,7 +91,7 @@ class Request
      */
     public function get(array $params = [])
     {
-        if (null !== $this->auth) {
+        if (isset($this->auth)) {
             $this->auth->setRequestMethod(__FUNCTION__);
             $this->auth->setRequestFields($params);
         }
@@ -142,8 +142,8 @@ class Request
             $this->headers['Content-Length'] = strlen($this->options[CURLOPT_POSTFIELDS]);
         }
 
-        if (null !== $this->auth) {
-            $this->headers['Authorization'] = (string) $this->auth;
+        if (isset($this->auth)) {
+            $this->headers['Authorization'] = $this->auth;
         }
 
         foreach ($this->headers as $header => $value) {
